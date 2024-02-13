@@ -1,0 +1,84 @@
+upstream redblue {
+    server 127.0.0.1:8081;
+    server 127.0.0.1:8082;
+}
+
+server {
+    listen 8081;
+    root /var/www/static;
+    index red.html;
+}
+
+server {
+    listen 8082;
+    root /var/www/static;
+    index blue.html;
+}
+
+
+#server {
+#    listen 80;
+#    server_name docker-task.ddns.net;
+
+
+#    return 301 https://$host$request_uri;
+#}
+
+server {
+    listen 80;
+#    listen 443 ssl;
+    server_name docker-task.ddns.net;
+
+
+#    ssl_certificate /etc/letsencrypt/live/docker-task.ddns.net/fullchain.pem;
+#    ssl_certificate_key /etc/letsencrypt/live/docker-task.ddns.net/privkey.pem;
+#    ssl_trusted_certificate /etc/letsencrypt/live/docker-task.ddns.net/chain.pem;
+
+
+    location / {
+        root /var/www/static;
+        index default.html;
+    }
+
+    location /images/ {
+        root /var/www/static;
+
+        location ~* \.(jpg|jpeg)$ {
+            set $rotation_angle "180";
+
+            if ($arg_angle) {
+                set $rotation_angle $arg_angle;
+            }
+
+            image_filter rotate $rotation_angle;
+            try_files $uri =404;
+        }
+
+        location ~* \.png$ {
+            try_files $uri =404;
+        }
+
+    }
+
+    location /redblue/ {
+        proxy_pass http://redblue/;
+    }
+
+    location /secondpage/ {
+        root /var/www/static;
+        index secondpage.html;
+    }
+
+    location /music/ {
+        root /var/www/static;
+        add_header Content-Disposition "attachment; filename=song.mp3";
+    }
+
+    location /secondserver/ {
+        proxy_pass http://iis.bsuir.by/;
+    }
+
+    location /info.php {
+        proxy_pass http://apache:8080;
+    }
+}
