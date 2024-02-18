@@ -1,3 +1,3 @@
 ---
 ansible_user                 : ubuntu   
-ansible_ssh_private_key_file : /home/utkin_ilusha/playsdev/amazon-key-ilya.pem
+ansible_ssh_private_key_file : /home/ubuntu/amazon-key-ilya.pem
