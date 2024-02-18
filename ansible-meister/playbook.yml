@@ -1,0 +1,10 @@
+---
+- name: Clone content from GitHub and make containers from it
+  hosts: all
+  become: yes
+
+  roles:
+    - git-clone
+    - { role: docker-for-AL, when: ansible_os_family == "RedHat"}
+    - { role: docker-for-ubuntu, when: ansible_os_family == "Debian" }
+    - docker-compose

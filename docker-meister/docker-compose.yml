@@ -1,17 +1,19 @@
 version: "3"
 services:
   apache:
-    build: ./apache-meister
+    image: zholnerchik/task14:apache
+    container_name: apache_container
     ports:
-      - "8080:8080"
+      - 8080:8080
     networks:
       - web
 
   nginx:
-    build: .
+    image: zholnerchik/task14:apache
+    container_name: nginx_container
     ports:
-      - "80:80"
-      - "443:443"
+      - 80:80
+      - 443:443
     networks:
       - web
 

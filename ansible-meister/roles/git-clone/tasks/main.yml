@@ -1,0 +1,19 @@
+---
+- name: Copy SSH key
+  copy:
+    src: /home/utkin_ilusha/.ssh/id_ed25519
+    dest: /home/{{ ansible_user }}/.ssh
+    mode: 0600
+
+- name: Git installation for Amazon Linux
+  yum:
+    name: git
+    state: present
+  when: ansible_os_family == "RedHat"
+
+- name: Clone GitHub repository
+  git:
+    repo: git@github.com:iliya-zholnerchik/ansible.git
+    key_file: /home/{{ ansible_user }}/.ssh/id_ed25519
+    dest: /home/{{ ansible_user }}/task
+    accept_hostkey: yes

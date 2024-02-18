@@ -1,0 +1,27 @@
+---
+- name: Update package index and install dependencies
+  apt:
+    update_cache: yes
+    name: apt-transport-https, ca-certificates, curl, software-properties-common
+  become: true
+
+- name: Add Docker GPG key
+  shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+  become: true
+
+- name: Add Docker repository
+  shell: echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+  become: true
+
+- name: Update package index and install Docker
+  apt:
+    update_cache: yes
+    name: docker-ce, docker-ce-cli, containerd.io
+  become: true
+
+- name: Verify Docker is running
+  service:
+    name: docker
+    state: started
+    enabled: yes
+  become: true
