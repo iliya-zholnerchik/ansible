@@ -5,12 +5,12 @@
     sudo chmod +x /usr/local/bin/docker-compose
   become: true
 
-- name: Pull Docker images from dockerhub
+- name: Pull Docker apache image from dockerhub
   docker_image:
     name: zholnerchik/task14:apache
     source: pull
 
-- name: Pull Docker images from dockerhub
+- name: Pull Docker nginx image from dockerhub
   docker_image:
     name: zholnerchik/task14:nginx
     source: pull
