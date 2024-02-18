@@ -1,4 +1,4 @@
 [ubuntu_instances]
-ubuntu          ansible_host=54.84.139.185
+ubuntu          ansible_host=52.91.57.95
 
 
