@@ -1,7 +1,7 @@
 ---
 - name: Copy SSH key
   copy:
-    src: /home/utkin_ilusha/.ssh/id_ed25519
+    src: /home/ubuntu/.ssh/id_ed25519
     dest: /home/{{ ansible_user }}/.ssh
     mode: 0600
 
