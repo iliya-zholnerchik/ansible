@@ -1,7 +1,7 @@
 ---
 - name: Copy SSH key
   copy:
-    src: /home/ubuntu/.ssh/id_ed25519
+    src: /var/lib/jenkins/id_ed25519
     dest: /home/{{ ansible_user }}/.ssh
     mode: 0600
 
