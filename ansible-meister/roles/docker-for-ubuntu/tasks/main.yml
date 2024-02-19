@@ -5,12 +5,10 @@
     name: apt-transport-https, ca-certificates, curl, software-properties-common
   become: true
 
-- name: Add Docker GPG key
-  get_url:
+- name: Get GPG key (Ubuntu)
+  apt_key:
     url: https://download.docker.com/linux/ubuntu/gpg
-    dest: /usr/share/keyrings/docker-archive-keyring.gpg
-    mode: '0644'
-  become: true
+    state: present
 
 - name: Add Docker repository
   apt_repository:
