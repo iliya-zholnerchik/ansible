@@ -16,7 +16,6 @@
     source: pull
 
 - name: Run docker containers via Docker compose
-  docker_compose:
-    project_src: /home/{{ ansible_user }}/task/docker-meister
-    state: present
-    files: docker-compose.yml
+  shell: /usr/local/bin/docker-compose up -d
+  args:
+    chdir: /home/{{ ansible_user }}/task/docker-meister
