@@ -5,17 +5,15 @@
     name: apt-transport-https, ca-certificates, curl, software-properties-common
   become: true
 
-- name: Get GPG key (Ubuntu)
+- name: Get GPG key
   apt_key:
     url: https://download.docker.com/linux/ubuntu/gpg
     state: present
 
-- name: Add Docker repository
-  apt_repository:
-    repo: "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename }} stable"
+- name: Set up the stable repository
+  ansible.builtin.apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
     state: present
-    filename: docker
-  become: true
 
 - name: Update package index and install Docker
   apt:
