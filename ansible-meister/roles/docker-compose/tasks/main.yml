@@ -6,12 +6,10 @@
   become: true
 
 - name: Install Docker Python library
-  ansible:
-    builtin:
-      pip:
-        name: docker
-        version: 5.0.0
-        state: present
+  ansible.builtin.pip:
+    name: docker
+    version: 5.0.0
+    state: present
 
 - name: Pull Docker apache image from dockerhub
   docker_image:
