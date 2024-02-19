@@ -9,7 +9,7 @@ services:
       - web
 
   nginx:
-    image: zholnerchik/task14:apache
+    image: zholnerchik/task14:nginx
     container_name: nginx
     ports:
       - 80:80
