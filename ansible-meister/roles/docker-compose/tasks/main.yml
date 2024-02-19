@@ -5,6 +5,11 @@
     sudo chmod +x /usr/local/bin/docker-compose
   become: true
 
+- name: Install Docker Python library
+  pip:
+    name: docker
+    state: present
+
 - name: Pull Docker apache image from dockerhub
   docker_image:
     name: zholnerchik/task14:apache
